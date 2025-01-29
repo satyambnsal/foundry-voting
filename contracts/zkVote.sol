@@ -3,10 +3,10 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
 
-import {UltraVerifier} from "../circuits/target/contract.sol";
+import {HonkVerifier} from "../circuits/target/Verifier.sol";
 
 contract zkVote {
-    UltraVerifier verifier;
+    HonkVerifier verifier;
 
     struct Proposal {
         string description;
@@ -22,7 +22,7 @@ contract zkVote {
 
     constructor(bytes32 _merkleRoot, address _verifier) {
         merkleRoot = _merkleRoot;
-        verifier = UltraVerifier(_verifier);
+        verifier = HonkVerifier(_verifier);
     }
 
     function propose(string memory description, uint256 deadline) public returns (uint256) {

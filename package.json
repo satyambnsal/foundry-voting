@@ -3,7 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "test": "forge test"
+    "test": "forge test",
+    "split": "bun run scripts/split-proof.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -11,5 +12,8 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@aztec/bb.js": "^0.72.1"
   }
 }

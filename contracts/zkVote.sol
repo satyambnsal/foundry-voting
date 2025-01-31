@@ -52,7 +52,6 @@ contract zkVote {
         else {
             proposals[proposalId].againstVotes += 1;
         }
-
         return true;
     }
 }

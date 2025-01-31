@@ -3,7 +3,14 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "test": "forge test"
+    "circuits:test": "cd circuits && nargo test --show-output",
+    "circuits:execute": "cd circuits && nargo execute",
+    "circuits:ultraplonk:generate-proof": "cd circuits && bb prove -b ./target/circuits.json -w ./target/circuits.gz -o ./target/proof",
+    "circuits:ultraplonk:generate-vk": "cd circuits && bb write_vk -b ./target/circuits.json -o ./target/vk",
+    "circuits:contract": "cd circuits && bb contract",
+    "ultraplonk:clean-proof": "bash ./scripts/ultraplonk-clean-proof.sh",
+    "test": "forge test",
+    "build:ultraplonk": "bash ./scripts/ultraplonk-all.sh"
   },
   "devDependencies": {
     "@types/bun": "latest",

@@ -1,60 +1,113 @@
-# Foundry Voting example
+# Foundry Voting Example
 
+This project demonstrates a voting system implementation using Noir circuits and Foundry.
 
-# Generating proof string using
+## Quick Start
 
-
-
-# Development Guide
-```
+Install dependencies:
+```bash
 bun install
 ```
 
-```
-bun run test
+## Development Guide
+
+### Interactive Build Process
+
+Run all steps interactively with status updates:
+```bash
+bun run build:ultraplonk
 ```
 
-## Noir Circuit flow
-Go to `circuits` directory
+This will guide you through all the steps with prompts and status updates.
+
+### Manual Steps
+
+#### 1. Circuit Testing
+
+Run the test suite:
+```bash
+bun run circuits:test
 ```
+
+#### 2. Circuit Execution Flow
+
+Execute the circuit (generates witness and circuit JSON file):
+```bash
+bun run circuits:execute
+```
+
+#### 3. Proof Generation
+
+Generate UltraPlonk proof:
+```bash
+bun run circuits:ultraplonk:generate-proof
+```
+
+Generate verification key:
+```bash
+bun run circuits:ultraplonk:generate-vk
+```
+
+#### 4. Contract Generation
+
+Generate the Solidity verifier contract:
+```bash
+bun run circuits:contract
+```
+
+#### 5. Proof Processing
+
+Clean and format the proof for contract verification:
+```bash
+bun run ultraplonk:clean-proof
+```
+
+#### 6. Contract Testing
+
+Run Forge tests:
+```bash
+forge test
+```
+
+### Advanced Usage
+
+#### Manual Circuit Commands
+
+If you need to run circuit commands directly:
+
+1. Navigate to circuits directory:
+```bash
 cd circuits
 ```
 
-Run test cases
-```
+2. Run Noir tests with output:
+```bash
 nargo test --show-output
 ```
 
-
-### Nargo commands
-
-Generate Prover.toml file
-```
+3. Generate Prover.toml file:
+```bash
 nargo check
 ```
-Execute circuit and generate witness(before this make changes in `Prover.toml` to fill circuit inputs)
-```
+
+4. Execute circuit (after updating Prover.toml with inputs):
+```bash
 nargo execute
 ```
-**`nargo exeute` command will generate a circuit json and witness file in `target` folder**
+This generates:
+- Circuit JSON in `target/circuits.json`
+- Witness file in `target/circuits.gz`
 
+#### Manual Proof Generation
 
-Generate proof using **UltraPlonk**
-```
+Generate proof using UltraPlonk:
+```bash
 bb prove -b ./target/circuits.json -w ./target/circuits.gz -o ./target/proof
 ```
-Generate solidity verifier contract
+
+Generate proof string manually:
+**Number of character to tail is counted with formula, 32 * NUMBER_OF_PUBLIC_INPUTS + 1**
+**Number of public inputs also includes return values, that's why we have 4 public input for our circuit.**
+```bash
+tail -c +129 ./target/proof | od -An -v -t x1 | tr -d $' \n'
 ```
-bb contract
-```
-
-
-Command to generate proof string from proof file
-```
-tail -c +97 ./target/proof | od -An -v -t x1 | tr -d $' \n'
-```
-
-
-
-
-

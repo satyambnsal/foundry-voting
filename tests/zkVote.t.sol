@@ -32,7 +32,7 @@ contract VotingTest is Test {
         voteContract = new zkVote(merkleRoot, address(verifier));
         voteContract.propose("First proposal", deadline);
         
-        string memory proofFilePath = "./circuits/target/proof1";
+        string memory proofFilePath = "./circuits/target/clean-proof";
         string memory proof = vm.readLine(proofFilePath);
 
         proofBytes = vm.parseBytes(proof);
